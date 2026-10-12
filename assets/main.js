@@ -231,7 +231,7 @@
 
     // Lightbox
     const box = $("#lightbox");
-    root.querySelectorAll(".gallery button").forEach((b) =>
+    root.querySelectorAll("[data-full]").forEach((b) =>
       b.addEventListener("click", () => {
         box.querySelector("img").src = b.dataset.full;
         box.querySelector("img").alt = b.querySelector("img").alt;
@@ -252,14 +252,28 @@
       <div class="prod">
         ${c.approach.map((a) => `<p>${esc(a)}</p>`).join("")}
         <div class="prod-grid">
-          <div><h3>The challenge</h3><p>${esc(c.challenges)}</p></div>
-          <div><h3>What we had going for us</h3><p>${esc(c.strengths)}</p></div>
+          ${c.challenges ? `<div><h3>The challenge</h3><p>${esc(c.challenges)}</p></div>` : ""}
+          ${c.strengths ? `<div><h3>What we had going for us</h3><p>${esc(c.strengths)}</p></div>` : ""}
           <div><h3>Tools</h3><ul class="tags">${c.tools.map((t) => `<li>${esc(t)}</li>`).join("")}</ul></div>
           <div><h3>Takeaways</h3>${list(c.lessons)}</div>
         </div>
         ${trello}
+        ${(c.images || []).map(([src, cap]) => `<figure class="prod-figure"><button type="button" data-full="${esc(src)}" aria-label="Enlarge: ${esc(cap)}"><img src="${esc(src)}" alt="${esc(cap)}" loading="lazy"></button><figcaption>${esc(cap)}</figcaption></figure>`).join("")}
+        ${c.raci ? raciTable(c.raci) : ""}
+        ${c.contract ? `<div class="contract"><h3>The team social contract</h3><dl>${c.contract.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl></div>` : ""}
         ${miro || plan ? `<details class="artifacts-wrap"><summary>Show the ${[plan && "project plan", miro && "Miro boards"].filter(Boolean).join(" and ")}</summary><div class="artifacts">${plan}${miro}</div></details>` : ""}
       </div></section>`;
+  }
+
+  function raciTable(r) {
+    const head = `<tr><th scope="col">Deliverable</th>${r.roles.map((x) => `<th scope="col">${esc(x)}</th>`).join("")}</tr>`;
+    const body = r.groups
+      .map(([g, rows]) => `<tr class="raci-group"><th colspan="${r.roles.length + 1}" scope="rowgroup">${esc(g)}</th></tr>` +
+        rows.map(([task, ...cells]) => `<tr><th scope="row">${esc(task)}</th>${cells.map((v) => `<td class="raci-${(v || "x").toLowerCase()}">${esc(v)}</td>`).join("")}</tr>`).join(""))
+      .join("");
+    return `<div class="raci"><h3>RACI chart</h3>
+      <p class="raci-key"><b class="raci-r">R</b> Responsible <b class="raci-a">A</b> Accountable <b class="raci-c">C</b> Consulted <b class="raci-i">I</b> Informed</p>
+      <div class="raci-scroll"><table><thead>${head}</thead><tbody>${body}</tbody></table></div></div>`;
   }
 
   /* ---------- Résumé ---------- */
