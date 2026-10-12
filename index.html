@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Davis Mesmer | Game Producer</title>
+  <meta name="description" content="Davis Mesmer: game producer who also builds in Unity and Unreal. Projects, production artifacts and playable games.">
+  <meta property="og:title" content="Davis Mesmer | Game Producer">
+  <meta property="og:description" content="Game producer who also builds. Projects, production artifacts and playable games.">
+  <meta property="og:image" content="images/crypt-dig-cover.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="home">
+  <a class="skip" href="#work">Skip to projects</a>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand-group">
+        <a class="brand" href="index.html">Davis Mesmer</a>
+        <div class="badges" id="badges"></div>
+      </div>
+      <nav class="nav" aria-label="Main">
+        <a href="#work">Work</a>
+        <a href="resume.html">Résumé</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <ul class="creds" id="creds" aria-label="Credentials"></ul>
+        <h1 id="headline">Game producer who also builds.</h1>
+        <p id="intro"></p>
+        <div class="hero-links" id="hero-links"></div>
+
+        <figure class="schedule" aria-labelledby="schedule-title">
+          <div class="schedule-head">
+            <h2 id="schedule-title">Every project, on one schedule</h2>
+            <ul class="legend">
+              <li><i class="swatch k-production"></i>Producing or directing</li>
+              <li><i class="swatch k-development"></i>Building</li>
+              <li><i class="swatch k-both"></i>Both</li>
+            </ul>
+          </div>
+          <div class="gantt-scroll"><div class="gantt" id="gantt"></div></div>
+          <figcaption class="schedule-note">Select a project to open it. Faded bars are still in progress.<span class="mobile-only"> Scroll sideways to see the whole timeline.</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="work">
+      <div class="wrap">
+        <h2 class="section-title">Producing at the University of Utah</h2>
+        <div class="featured" id="featured"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2 class="section-title">Game jams and indie projects</h2>
+        <ul class="list" id="list"></ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2 class="section-title">Code samples</h2>
+        <div class="code-grid" id="code"></div>
+      </div>
+    </section>
+
+    <section class="section" id="skills">
+      <div class="wrap">
+        <h2 class="section-title">What I bring to a team</h2>
+        <div class="skills">
+          <div class="skill-col">
+            <h3>Producing</h3>
+            <p>Keeping scope honest and everyone unblocked.</p>
+            <ul id="skills-prod"></ul>
+          </div>
+          <div class="skill-col dev">
+            <h3>Building</h3>
+            <p>Hands in the engine when the build needs them.</p>
+            <ul id="skills-dev"></ul>
+          </div>
+        </div>
+        <div class="photo-note" id="photo"></div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="wrap">
+        <div class="contact-box">
+          <h2>Looking for a producer who speaks engineer?</h2>
+          <p>I'm open to production roles and collaborations. Play the games, browse the boards, then get in touch.</p>
+          <div class="hero-links" id="contact-links"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">© <span id="year"></span> Davis Mesmer</div>
+  </footer>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/main.js"></script>
+</body>
+</html>
