@@ -7,9 +7,9 @@
 
 window.SITE = {
   name: "Davis Mesmer",
-  headline: "Game producer who also builds.",
+  headline: "Davis Mesmer",
   intro:
-    "I keep teams shipping: scope, schedules, boards and standups. When the build needs another pair of hands, I open Unity or Unreal and help. I'm a producer in the Master of Entertainment Arts and Engineering program at the University of Utah, and before that I was a software engineer at CarMax.",
+    "I'm a producer in the Master of Entertainment Arts and Engineering program at the University of Utah, and before that I was a software engineer at CarMax. I'm seeking a production internship as part of my studies for Summer of 2027.",
   // Anything left empty is hidden.
   email: "gogreenmesmer@hotmail.com",
   linkedin: "https://www.linkedin.com/in/davis-mesmer/",
