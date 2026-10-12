@@ -113,7 +113,7 @@ window.PROJECTS = [
     type: "Graduate project",
     role: "Producer",
     roleSummary:
-      "Organized the team around one goal: a VR serious game that teaches Western audiences about the taiko drum.",
+      "A VR serious game that teaches Western audiences about the taiko drum.",
     start: "2026-09-10",
     end: "2026-10-08",
     engine: "Unreal Engine 5",
@@ -122,7 +122,7 @@ window.PROJECTS = [
     team: [
       ["MJ Nelson", "Tech art"],
       ["Wenji Pu", "Tech art"],
-      ["Aryan", "Game design"],
+      ["Aryan Chaudhary", "Game design"],
       ["Phil Morgan", "Engineering"],
       ["Tanner Booth", "Game art"],
       ["Tengxiang Yang", "Game art"],
@@ -169,13 +169,12 @@ window.PROJECTS = [
     production: {
       tools: ["Jira", "RACI chart", "Social contract", "Standups"],
       approach: [
-        "I ran the project in Jira with a column for each week's finished work, so the team could see progress toward lock date at a glance. Tickets were tagged by discipline and grouped under milestones like MVP Level, Playable Demos and Final Deliverables.",
-        "A RACI chart set exactly one accountable owner for every deliverable, from Gaussian splat rendering to the final build. The social contract pointed back to it: if you're not Responsible for an area, it isn't yours to decide.",
-        "Production tickets covered the work around the game too, including keeping in contact with a subject matter expert so the taiko experience stayed accurate.",
+        "I ran the project in Jira with a target lock date and MVP requirements. Tickets were tagged by discipline and grouped under workflows such as Playable Demos and Final Deliverables.",
+        "Standups were held every class meeting to keep team members up to date on what everyone was working on. The board was updated daily to keep the project timeline accurate.",
       ],
       lessons: [
-        "Put ownership in writing. The RACI chart settled questions before they became arguments.",
-        "Set AI rules up front. Ours allowed AI for tech art and learning, and ruled it out for writing, code, Blueprints and game art.",
+        "Put ownership in writing. This increases accountability and encourages people to ask questions.",
+        "Set AI rules up front. Specific AI controls prevents creative slop while simultaneously increasing efficiency",
       ],
       images: [
         ["images/oto-jira.webp", "The Jira board near lock date, with finished work grouped by week."],
@@ -215,7 +214,7 @@ window.PROJECTS = [
       contract: [
         ["Standups", "Tuesdays and Thursdays at 9:15 AM: what you did, what you're doing next, and what's blocking you. Be on time."],
         ["Workload", "About 15 hours a week for a 4-credit course, and stay through the end of class."],
-        ["Jira", "Check the board every week for your work and its timeline. Questions go to Davis."],
+        ["Jira", "Check the board every week for your work and its timeline. Questions go to me."],
         ["Respect", "Be respectful, take feedback without taking it personally, and be mindful of people's weekends."],
         ["Stay in your lane", "If you're not Responsible for a task on the RACI chart, it isn't yours to decide."],
         ["AI policy", "Use AI for tech art and for learning new topics. Don't use it for writing, code, Blueprints or game art."],
@@ -236,7 +235,7 @@ window.PROJECTS = [
     type: "Graduate project",
     role: "Producer",
     roleSummary:
-      "Ran schedules, meetings and workloads for a seven-person team building a classic arcade game in a single sprint, and helped in Unity and C# where needed.",
+      "Ran schedules, meetings and workloads for a seven-person team building a classic arcade game in two weeks, and helped in Unity and C# where needed.",
     start: "2026-08-25",
     end: "2026-09-10",
     engine: "Unity",
