@@ -314,7 +314,7 @@ window.PROJECTS = [
     label: "Team leadership",
     context: "Brackeys Game Jam 2025.2",
     type: "Game jam",
-    role: "Game Director",
+    role: "Project Lead",
     roleSummary:
       "Directed production across art, programming, music and sound, with a focus on presentation and polish.",
     start: "2025-08-25",
@@ -326,7 +326,7 @@ window.PROJECTS = [
       ["Garrett Priess", "Lead Unity developer"],
       ["Cecilia Cecchet", "Game art"],
       ["Nicholas Palmer", "Music"],
-      ["Davis Mesmer", "Game director"],
+      ["Davis Mesmer", "Project Lead"],
     ],
     pitch:
       "Run, jump and dash to the biscuit, then get back to your dumpster. A Frogger-style arcade game that gets harder every day.",
@@ -403,7 +403,7 @@ window.PROJECTS = [
     language: "C#",
     teamSize: 2,
     team: [
-      ["Garrett Priess", "Game director"],
+      ["Garrett Priess", "Game lead"],
       ["Davis Mesmer", "Unity developer"],
     ],
     pitch:
@@ -471,7 +471,7 @@ window.PROJECTS = [
     label: "Gameplay systems",
     context: "Open source",
     type: "Independent",
-    role: "Game Director and Unity Programmer",
+    role: "Project Lead and Unity Programmer",
     roleSummary:
       "A solo, open-source project I started to learn event-based programming. I wrote all the code and direct the art and audio.",
     start: "2025-08-01",
@@ -479,7 +479,7 @@ window.PROJECTS = [
     engine: "Unity",
     language: "C#",
     teamSize: 1,
-    team: [["Davis Mesmer", "Director and programmer"]],
+    team: [["Davis Mesmer", "Project lead and programmer"]],
     pitch:
       "Guide a mouse through procedurally generated mazes to the cheese. Every level is new. Controls: WASD and Space.",
     cover: "images/mousetrap-cover.webp",
