@@ -28,9 +28,11 @@
     const out = [];
     if (S.email) out.push(`<a class="btn btn-primary" href="mailto:${esc(S.email)}">Email me</a>`);
     if (S.resume) out.push(`<a class="btn" href="resume.html">Résumé</a>`);
-    if (S.linkedin) out.push(`<a class="btn" href="${esc(S.linkedin)}">LinkedIn</a>`);
-    if (S.itch) out.push(`<a class="btn" href="${esc(S.itch)}">itch.io</a>`);
-    if (S.github) out.push(`<a class="btn" href="${esc(S.github)}">GitHub</a>`);
+    const icon = (href, name, key) =>
+      `<a class="btn btn-icon" href="${esc(href)}" aria-label="${name}" title="${name}"><span class="icon icon-${key}" aria-hidden="true"></span></a>`;
+    if (S.linkedin) out.push(icon(S.linkedin, "LinkedIn", "linkedin"));
+    if (S.itch) out.push(icon(S.itch, "itch.io", "itch"));
+    if (S.github) out.push(icon(S.github, "GitHub", "github"));
     return out.join("");
   }
 
@@ -86,6 +88,16 @@
         </article>`;
       })
       .join("");
+
+    const ab = S.about;
+    if (ab && $("#about-body")) {
+      $("#about-body").innerHTML = `
+        <img class="about-photo" src="${esc(ab.photo)}" alt="${esc(ab.alt)}" width="800" height="1000" loading="lazy">
+        <div class="about-text">
+          ${ab.paragraphs.map((t) => `<p>${esc(t)}</p>`).join("")}
+          <dl class="about-facts">${ab.facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
+        </div>`;
+    }
 
     const ph = S.photography;
     if (ph) {

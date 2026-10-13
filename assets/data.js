@@ -69,6 +69,23 @@ window.SITE = {
     ],
   },
   // A one-line highlight under the skills, with a couple of photos.
+  // The About section on the home page. Edit freely: each paragraph is one string.
+  about: {
+    photo: "images/headshot.webp",
+    alt: "Davis Mesmer",
+    paragraphs: [
+      "I'm a producer because I like making teams work. I believe that any team has what it takes to succeed with the right guidance. For me, producing is all about making individuals feel heard while encouraging people to do their best work.",
+      "I studied Computer Information Systems at James Madison University, then worked as a software engineer at CarMax, where I learned how much clear communication matters. I'm currently on the Production Track in the Masters of Entertainment Arts and Engineering program at the University of Utah, and working as a teaching assistant for Utah Games.",
+      "I've been making games since I was 13. Games is a huge passion of mine - having a emotional impact on the player is something I love. I think the best games are made when everyone is actively participating and passionate about the project.",
+    ],
+    facts: [
+      ["Now", "Producer, MEAE at the University of Utah, graduating May 2028"],
+      ["Looking for", "A production internship for Summer 2027"],
+      ["Before", "Software Engineer, CarMax"],
+      ["Education", "B.B.A. in Computer Information Systems, James Madison University, cum laude"],
+      ["Off the clock", "Photography, starting businesses, and playing games"],
+    ],
+  },
   photography: {
     title: "Photographer",
     text: "I've been shooting landscapes since high school. That eye for framing and light is what I bring to camera systems and cutscenes, like the Spider Queen reveal in Terrarium.",
