@@ -97,7 +97,7 @@ window.SITE = {
       title: "OpenGL Shader Designs",
       lang: "GLSL, WebGL",
       text: "A fragment shader written from scratch: signed distance shapes, cosine color palettes and animated polar patterns. Built while working through LearnOpenGL and The Book of Shaders.",
-      demo: "https://datfrozencube.github.io/GLSLShaders/",
+      demo: "/GLSLShaders/",
       code: "https://github.com/DatFrozenCube/GLSLShaders",
     },
     {
