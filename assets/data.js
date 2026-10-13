@@ -74,7 +74,7 @@ window.SITE = {
     photo: "images/headshot.webp",
     alt: "Davis Mesmer",
     paragraphs: [
-      "Test I'm a producer because I like making teams work. I believe that any team has what it takes to succeed with the right guidance. For me, producing is all about making individuals feel heard while encouraging people to do their best work.",
+      "I'm a producer because I like making teams work. I believe that any team has what it takes to succeed with the right guidance. For me, producing is all about making individuals feel heard while encouraging people to do their best work.",
       "I studied Computer Information Systems at James Madison University, then worked as a software engineer at CarMax, where I learned how much clear communication matters. I'm currently on the Production Track in the Masters of Entertainment Arts and Engineering program at the University of Utah, and working as a teaching assistant for Utah Games.",
       "I've been making games since I was 13. Games is a huge passion of mine - having a emotional impact on the player is something I love. I think the best games are made when everyone is actively participating and passionate about the project.",
     ],
