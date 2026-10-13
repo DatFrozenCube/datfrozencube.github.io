@@ -174,7 +174,7 @@ window.PROJECTS = [
       ],
       lessons: [
         "Put ownership in writing. This increases accountability and encourages people to ask questions.",
-        "Set AI rules up front. Specific AI controls prevents creative slop while simultaneously increasing efficiency",
+        "Set AI rules up front. Specific AI controls prevents creative slop while simultaneously increasing efficiency.",
       ],
       images: [
         ["images/oto-jira.webp", "The Jira board near lock date, with finished work grouped by week."],
