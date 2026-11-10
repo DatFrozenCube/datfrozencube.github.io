@@ -13,7 +13,7 @@ window.SITE = {
   // Anything left empty is hidden.
   email: "gogreenmesmer@hotmail.com",
   linkedin: "https://www.linkedin.com/in/davis-mesmer/",
-  resume: "resume.pdf", // replace resume.pdf in the site folder to update it
+  resume: "resume.pdf?v=20261110b", // replace resume.pdf in the site folder to update it
   github: "https://github.com/DatFrozenCube",
   itch: "https://datfrozencube.itch.io",
   // Badges shown in the header on every page.
@@ -38,7 +38,8 @@ window.SITE = {
   // Shown on the résumé page next to the PDF.
   resumeHighlights: [
     "Master of Entertainment Arts and Engineering, University of Utah (Producer track, in progress)",
-    "Teaching assistant, Utah Games",
+    "Co-Producer, Peter Pan Project: cut Jira cycle time by over 50%",
+    "Games teaching assistant, University of Utah: Survey of Games (130 students) and Capstone I (80 students)",
     "Software Engineer, CarMax (Fortune 100)",
     "B.B.A. in Computer Information Systems, James Madison University, 2022. Cum laude, Honors College",
     "2nd place overall, Jackson-Rainey Business Plan Competition",
