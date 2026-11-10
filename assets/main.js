@@ -407,7 +407,7 @@
       if (!el) {
         el = document.createElement("div");
         el.className = "cube-peek";
-        el.innerHTML = `<img src="images/frozen-cube.webp" alt="DatFrozenCube, Davis's pixel avatar: an ice cube in a hoodie" width="52" height="140"><span class="cube-bubble" role="status">you found me!</span>`;
+        el.innerHTML = `<img src="images/frozen-cube.webp?v=20261110" alt="DatFrozenCube, Davis's pixel avatar: an ice cube in a hoodie" width="52" height="140"><span class="cube-bubble" role="status">you found me!</span>`;
         document.body.appendChild(el);
         el.addEventListener("animationend", (e) => {
           if (e.target !== el) return; // ignore the image and bubble animations
