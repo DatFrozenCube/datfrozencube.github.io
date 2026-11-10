@@ -11,6 +11,7 @@
 
   function dateRange(p) {
     const s = parse(p.start), e = parse(p.end);
+    if (!e && p.due) return `${fmtMonth(s)} to ${fmtMonth(parse(p.due))}, in progress`;
     if (!e) return `${fmtMonth(s)} to now`;
     const days = Math.round((e - s) / 864e5) + 1;
     if (days <= 14) return `${days} days, ${fmtMonth(s)}`;
@@ -117,7 +118,7 @@
     const items = [...ALL].sort((a, b) => parse(a.start) - parse(b.start));
     const first = parse(items[0].start);
     const min = new Date(first.getFullYear(), first.getMonth(), 1);
-    const lastEnd = new Date(Math.max(today, ...items.map((p) => parse(p.end) || today)));
+    const lastEnd = new Date(Math.max(today, ...items.map((p) => parse(p.end) || parse(p.due) || today)));
     const max = new Date(lastEnd.getFullYear(), lastEnd.getMonth() + 2, 1);
     const span = max - min;
     const pct = (d) => ((d - min) / span) * 100;
@@ -145,7 +146,7 @@
     const bars = items
       .map((p, i) => {
         const s = parse(p.start);
-        const e = parse(p.end) || today;
+        const e = parse(p.end) || parse(p.due) || today;
         const left = pct(s), width = Math.max(pct(e) - left, 0.6);
         return `<div class="gantt-row">
           <a class="gantt-bar k-${p.kind}${p.end ? "" : " ongoing"}" style="left:${left}%;width:${width}%;--i:${i}" href="project.html?p=${esc(p.slug)}" title="${esc(`${p.title}: ${dateRange(p)}`)}" tabindex="-1" aria-hidden="true"></a>
@@ -189,10 +190,26 @@
       ["Team", p.teamSize === 1 ? "Solo" : `${p.teamSize} people`],
       ["Engine", `${p.engine}, ${p.language}`],
     ];
+    if (p.platform) facts.push(["Platform", p.platform]);
 
     const sections = [];
-    sections.push(`<section><h2>What I did</h2><p class="lead">${esc(p.roleSummary)}</p>
+    sections.push(`<section><h2>${p.due && !p.end ? "What I do" : "What I did"}</h2><p class="lead">${esc(p.roleSummary)}</p>
       <ul class="did${dev ? " dev" : ""}" style="margin-top:16px">${p.did.map((d) => `<li>${esc(d)}</li>`).join("")}</ul></section>`);
+
+    if (p.milestones && p.milestones.length) {
+      const now = new Date();
+      now.setHours(0, 0, 0, 0);
+      const nextIdx = p.milestones.findIndex(([d]) => parse(d) >= now);
+      const fmtDay = (d) => `${MONTHS[d.getMonth()]} ${d.getDate()}`;
+      sections.push(`<section><h2>Milestones</h2><ol class="milestones" style="--n:${p.milestones.length}">${p.milestones
+        .map(([d, label], k) => {
+          const date = parse(d);
+          const state = k < nextIdx || nextIdx < 0 ? "done" : k === nextIdx ? "next" : "later";
+          const tag = state === "done" ? "Done" : state === "next" ? "Up next" : "";
+          return `<li class="ms-${state}"><time datetime="${esc(d)}">${fmtDay(date)}</time><span>${esc(label)}</span>${tag ? `<em>${tag}</em>` : ""}</li>`;
+        })
+        .join("")}</ol></section>`);
+    }
 
     if (p.playEmbed) {
       const r = p.playEmbed;
@@ -219,7 +236,13 @@
         .map((s, k) => `<button type="button" data-full="${esc(s)}" aria-label="Enlarge screenshot ${k + 1}"><img src="${esc(s)}" alt="${esc(p.title)} screenshot ${k + 1}" loading="lazy"></button>`)
         .join("")}</div></section>`);
 
-    sections.push(`<section><h2>What I learned</h2>${p.reflection ? `<p>${esc(p.reflection)}</p>` : ""}
+    (p.galleries || []).forEach((g) =>
+      sections.push(`<section><h2>${esc(g.title)}</h2><div class="gallery fixed" style="--cols:${g.cols || 2};--ratio:${g.ratio || "16 / 10"}">${g.items
+        .map(([s, cap]) => `<button type="button" data-full="${esc(s)}" aria-label="Enlarge: ${esc(cap)}"><img src="${esc(s)}" alt="${esc(`${p.title}: ${cap}`)}" loading="lazy"></button>`)
+        .join("")}</div></section>`)
+    );
+
+    sections.push(`<section><h2>${esc(p.lessonsTitle || "What I learned")}</h2>${p.reflection ? `<p>${esc(p.reflection)}</p>` : ""}
       <ul class="did${dev ? " dev" : ""}" style="margin-top:12px">${p.lessons.map((l) => `<li>${esc(l)}</li>`).join("")}</ul></section>`);
 
     const links = [];
@@ -244,7 +267,7 @@
           <aside class="p-side">
             ${links.length ? `<div class="side-block side-links">${links.join("")}</div>` : ""}
             ${p.team.length ? `<div class="side-block"><h2>Team</h2><ul class="team">${p.team
-              .map(([n, r]) => `<li${n === S.name ? ' class="me"' : ""}>${esc(n)}<span>${esc(r)}</span></li>`)
+              .map(([n, r]) => `<li${n === S.name || n === p.teamMe ? ' class="me"' : ""}>${esc(n)}<span>${esc(r)}</span></li>`)
               .join("")}</ul></div>` : ""}
           </aside>
         </div>
@@ -269,7 +292,13 @@
       .map(([t, u]) => `<div class="artifact"><h3>${esc(t)} (Miro)</h3><iframe src="${esc(u)}" loading="lazy" allowfullscreen title="${esc(t)}"></iframe></div>`)
       .join("");
     const plan = c.plan ? `<div class="artifact"><h3>Project plan</h3><iframe src="${esc(c.plan)}" loading="lazy" title="Project plan"></iframe></div>` : "";
-    const trello = c.trello ? `<div class="artifact-links"><a class="btn" href="${esc(c.trello)}">Open the Trello board</a></div>` : "";
+    const linkList = [...(c.trello ? [["Open the Trello board", c.trello]] : []), ...(c.links || [])];
+    const trello = linkList.length
+      ? `<div class="artifact-links">${linkList.map(([t, u]) => `<a class="btn" href="${esc(u)}"${/^https?:/.test(u) ? ' target="_blank" rel="noopener"' : ""}>${esc(t)}</a>`).join("")}</div>`
+      : "";
+    const embeds = (c.embeds || [])
+      .map(([t, u]) => `<div class="artifact"><h3>${esc(t)}</h3><iframe src="${esc(u)}" loading="lazy" title="${esc(t)}"></iframe></div>`)
+      .join("");
     return `<section><h2>How I ran the team</h2>
       <div class="prod">
         ${c.approach.map((a) => `<p>${esc(a)}</p>`).join("")}
@@ -280,18 +309,47 @@
           <div><h3>Takeaways</h3>${list(c.lessons)}</div>
         </div>
         ${trello}
+        ${embeds ? `<div class="artifacts">${embeds}</div>` : ""}
         ${(c.images || []).map(([src, cap]) => `<figure class="prod-figure"><button type="button" data-full="${esc(src)}" aria-label="Enlarge: ${esc(cap)}"><img src="${esc(src)}" alt="${esc(cap)}" loading="lazy"></button><figcaption>${esc(cap)}</figcaption></figure>`).join("")}
         ${c.raci ? raciTable(c.raci) : ""}
+        ${c.aiPolicy ? aiPolicyBlock(c.aiPolicy) : ""}
+        ${c.skill ? skillBlock(c.skill) : ""}
         ${c.contract ? `<div class="contract"><h3>The team social contract</h3><dl>${c.contract.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl></div>` : ""}
         ${miro || plan ? `<details class="artifacts-wrap"><summary>Show the ${[plan && "project plan", miro && "Miro boards"].filter(Boolean).join(" and ")}</summary><div class="artifacts">${plan}${miro}</div></details>` : ""}
       </div></section>`;
   }
 
+  function aiPolicyBlock(a) {
+    const lv = (n) => `<b class="ai-lv ai-lv-${n}">${n}</b>`;
+    return `<div class="ai-policy"><h3>AI Assessment chart</h3>
+      <p>${esc(a.intro)}</p>
+      ${a.branches ? `<p class="ai-branches">${esc(a.branches)}</p>` : ""}
+      <ol class="ai-scale">${a.scale.map(([n, name, d]) => `<li>${lv(n)}<div><strong>${esc(name)}</strong><span>${esc(d)}</span></div></li>`).join("")}</ol>
+      <div class="ai-groups">${a.groups
+        .map(([g, items]) => `<div><h4>${esc(g)}</h4><ul>${items.map(([t, n]) => `<li><span>${esc(t)}</span>${lv(n)}</li>`).join("")}</ul></div>`)
+        .join("")}</div>
+      <div class="ai-extra">
+        <div><h4>Approved tools</h4><p>${a.models.yes.map(esc).join(", ")}. Not approved: ${a.models.no.map(esc).join(", ")}.</p>
+          <h4>Art stays private</h4><p>${esc(a.art)}</p></div>
+        <div><h4>If someone breaks it</h4><dl>${a.consequences.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl></div>
+      </div></div>`;
+  }
+
+  function skillBlock(s) {
+    const logo = s.logo ? `<span class="icon icon-${esc(s.logo)}" role="img" aria-label="${esc(s.logoLabel || s.logo)}"></span>` : "";
+    return `<div class="skill-block"><h3${logo ? ' class="logo-inline"' : ""}>${logo}${esc(s.title)}</h3>
+      <p>${esc(s.intro)}</p>
+      <ol class="skill-steps">${s.steps.map(([t, d]) => `<li><strong>${esc(t)}</strong><span>${esc(d)}</span></li>`).join("")}</ol>
+      <p class="skill-dev">${esc(s.development)}</p></div>`;
+  }
+
   function raciTable(r) {
-    const head = `<tr><th scope="col">Deliverable</th>${r.roles.map((x) => `<th scope="col">${esc(x)}</th>`).join("")}</tr>`;
+    const meCol = r.me ? r.roles.indexOf(r.me) : -1;
+    const mark = (k) => (k === meCol ? " raci-me" : "");
+    const head = `<tr><th scope="col">Deliverable</th>${r.roles.map((x, k) => `<th scope="col" class="${mark(k).trim()}">${esc(x)}${k === meCol ? " (me)" : ""}</th>`).join("")}</tr>`;
     const body = r.groups
       .map(([g, rows]) => `<tr class="raci-group"><th colspan="${r.roles.length + 1}" scope="rowgroup">${esc(g)}</th></tr>` +
-        rows.map(([task, ...cells]) => `<tr><th scope="row">${esc(task)}</th>${cells.map((v) => `<td class="raci-${(v || "x").toLowerCase()}">${esc(v)}</td>`).join("")}</tr>`).join(""))
+        rows.map(([task, ...cells]) => `<tr><th scope="row">${esc(task)}</th>${cells.map((v, k) => `<td class="raci-${(v || "x").toLowerCase()}${mark(k)}">${esc(v)}</td>`).join("")}</tr>`).join(""))
       .join("");
     return `<div class="raci"><h3>RACI chart</h3>
       <p class="raci-key"><b class="raci-r">R</b> Responsible <b class="raci-a">A</b> Accountable <b class="raci-c">C</b> Consulted <b class="raci-i">I</b> Informed</p>

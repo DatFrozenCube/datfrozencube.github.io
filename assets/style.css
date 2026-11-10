@@ -191,7 +191,7 @@ p { margin: 0; }
 .p-head .thumb { aspect-ratio: 4 / 3; border-radius: var(--radius-lg); overflow: hidden; }
 .award-callout { margin-top: 18px; display: inline-block; background: var(--amber-soft); color: #6f4709; font-weight: 600; padding: 8px 14px; border-radius: var(--radius-sm); }
 
-.facts { margin: clamp(28px, 4vw, 44px) 0 0; display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.facts { margin: clamp(28px, 4vw, 44px) 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
 .facts div { padding: 14px 16px 14px 0; }
 .facts dt { font-size: 14px; color: var(--muted); }
 .facts dd { margin: 2px 0 0; font-weight: 600; }
@@ -235,6 +235,23 @@ p { margin: 0; }
 .gallery button { padding: 0; border: 0; background: var(--ink); border-radius: var(--radius-sm); overflow: hidden; cursor: zoom-in; aspect-ratio: 16 / 10; }
 .gallery img { width: 100%; height: 100%; object-fit: cover; }
 .gallery.odd button:first-child { grid-column: 1 / -1; aspect-ratio: 16 / 8; }
+.gallery.fixed { grid-template-columns: repeat(var(--cols), 1fr); }
+.gallery.fixed button { aspect-ratio: var(--ratio); }
+@media (max-width: 520px) { .gallery.fixed { grid-template-columns: repeat(min(var(--cols), 2), 1fr); } }
+
+/* Milestones (in-progress projects) */
+.milestones { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--n, 6), 1fr); gap: 8px; }
+@media (max-width: 1000px) { .milestones { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 520px) { .milestones { grid-template-columns: repeat(2, 1fr); } }
+.milestones li { min-width: 0; }
+.milestones li { background: var(--surface); border: 1px solid var(--rule); border-top: 4px solid var(--rule); border-radius: var(--radius-sm); padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
+.milestones time { font-weight: 800; font-size: 18px; }
+.milestones span { font-size: 15px; color: var(--muted); }
+.milestones em { font-style: normal; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+.milestones .ms-done { border-top-color: var(--blue); }
+.milestones .ms-done em { color: var(--blue); }
+.milestones .ms-next { border-top-color: var(--amber); box-shadow: 0 0 0 2px var(--amber-soft); }
+.milestones .ms-next em { color: #8a5a0f; }
 
 .p-side { align-self: start; position: sticky; top: 24px; }
 .side-block + .side-block { margin-top: 28px; }
@@ -366,6 +383,44 @@ p { margin: 0; }
 .contract dt { font-weight: 700; }
 .contract dd { margin: 2px 0 0; font-size: 15px; color: var(--muted); }
 @media (max-width: 720px) { .contract dl { grid-template-columns: 1fr; } }
+.raci thead th:first-child, .raci tbody th[scope="row"] { position: sticky; left: 0; background: var(--surface); z-index: 1; }
+.raci th.raci-me { color: var(--blue); }
+.raci td.raci-me { box-shadow: inset 2px 0 0 var(--ink), inset -2px 0 0 var(--ink); }
+
+/* AI Assessment chart */
+.ai-policy, .skill-block { margin-top: 32px; border-top: 1px solid var(--rule); padding-top: 24px; }
+.ai-policy h3, .skill-block h3 { font-size: 17px; margin-bottom: 6px; }
+.ai-policy h4 { font-size: 14px; margin: 0 0 6px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.ai-policy > p, .skill-block > p { max-width: 68ch; }
+.ai-branches { margin-top: 10px; font-size: 15px; border-left: 3px solid var(--amber); padding: 2px 0 2px 12px; color: var(--muted); }
+.ai-lv { display: inline-grid; place-items: center; flex: none; width: 24px; height: 24px; border-radius: 5px; font-size: 13px; font-weight: 800; }
+.ai-lv-1 { background: var(--ink); color: #fff; }
+.ai-lv-2 { background: #1c3f8f; color: #fff; }
+.ai-lv-3 { background: var(--blue-soft); color: #1c3f8f; }
+.ai-lv-4 { background: var(--amber-soft); color: #6f4709; }
+.ai-scale { list-style: none; padding: 0 !important; margin: 14px 0 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.ai-scale li { margin: 0 !important; display: flex; gap: 10px; align-items: flex-start; background: var(--paper); border-radius: var(--radius-sm); padding: 10px; }
+.ai-scale strong { display: block; font-size: 15px; }
+.ai-scale span { font-size: 13px; color: var(--muted); line-height: 1.4; display: block; }
+.ai-groups { margin-top: 18px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px 24px; }
+.ai-groups ul { list-style: none; padding: 0 !important; margin: 0; }
+.ai-groups li { margin: 0 !important; display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 5px 0; border-bottom: 1px solid var(--rule); font-size: 15px; }
+.ai-extra { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.ai-extra p { font-size: 15px; margin-bottom: 14px; }
+.ai-extra dl { margin: 0; }
+.ai-extra dl div { padding: 5px 0; border-bottom: 1px solid var(--rule); }
+.ai-extra dt { font-weight: 700; font-size: 15px; }
+.ai-extra dd { margin: 0; font-size: 14px; color: var(--muted); }
+@media (max-width: 860px) { .ai-scale { grid-template-columns: 1fr 1fr; } .ai-groups { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .ai-scale, .ai-groups, .ai-extra { grid-template-columns: 1fr; } }
+
+/* Claude Code skill */
+.skill-steps { list-style: none; padding: 0 !important; margin: 14px 0 0; counter-reset: step; display: grid; gap: 8px; }
+.skill-steps li { margin: 0 !important; counter-increment: step; position: relative; padding: 10px 12px 10px 48px; background: var(--paper); border-radius: var(--radius-sm); }
+.skill-steps li::before { content: counter(step); position: absolute; left: 12px; top: 10px; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-size: 13px; font-weight: 800; }
+.skill-steps strong { display: block; }
+.skill-steps span { font-size: 15px; color: var(--muted); }
+.skill-dev { margin-top: 14px; font-size: 15px; color: var(--muted); }
 .p-main, .p-side, .prod { min-width: 0; }
 
 /* About */
@@ -406,3 +461,8 @@ p { margin: 0; }
   .btn, .btn-icon .icon { transition: none; }
   .btn-icon:hover .icon { transform: none; }
 }
+
+/* Claude logo (Simple Icons, CC0), drawn as a mask like the social icons */
+.icon-claude { --icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z'/%3E%3C/svg%3E"); }
+.logo-inline { display: flex; align-items: center; gap: 10px; }
+.logo-inline .icon { display: block; flex: none; width: 1.4em; height: 1.4em; background-color: currentColor; -webkit-mask: var(--icon) center / contain no-repeat; mask: var(--icon) center / contain no-repeat; }
