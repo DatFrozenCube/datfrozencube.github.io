@@ -185,14 +185,18 @@ p { margin: 0; }
 .cube-btn:hover, .cube-btn:focus-visible { opacity: 1; transform: rotate(-8deg) scale(1.15); }
 .cube-peek {
   position: fixed; right: clamp(12px, 4vw, 48px); bottom: 0; z-index: 50;
-  width: clamp(120px, 16vw, 183px); pointer-events: none;
+  width: 104px; pointer-events: none; /* 2x the 52px-wide pixel art */
   transform: translateY(105%); visibility: hidden;
 }
-.cube-peek img { width: 100%; height: auto; image-rendering: pixelated; border-radius: 8px 8px 0 0; box-shadow: 0 -6px 24px rgba(24, 32, 58, 0.25); }
+.cube-peek img {
+  width: 100%; height: auto; image-rendering: pixelated;
+  /* a 2px pixel-art outline so the pale cube reads on the light page */
+  filter: drop-shadow(2px 0 0 #18203a) drop-shadow(-2px 0 0 #18203a) drop-shadow(0 2px 0 #18203a) drop-shadow(0 -2px 0 #18203a);
+}
 .cube-peek.go { visibility: visible; animation: cube-peek 3.6s cubic-bezier(.3,.7,.3,1) both; }
 .cube-peek.go img { animation: cube-glance 3.6s steps(1, end) both; }
 .cube-bubble {
-  position: absolute; top: -6px; right: 100%; margin-right: 8px; white-space: nowrap;
+  position: absolute; top: 10px; right: 100%; margin-right: 6px; white-space: nowrap;
   background: var(--surface); color: var(--ink); border: 2px solid var(--ink); border-radius: 8px;
   font-size: 13px; font-weight: 700; padding: 4px 9px; opacity: 0;
 }
@@ -200,14 +204,14 @@ p { margin: 0; }
 .cube-peek.go .cube-bubble { animation: cube-bubble 3.6s ease both; }
 @keyframes cube-peek {
   0% { transform: translateY(105%); }
-  15%, 80% { transform: translateY(30%); }
+  15%, 80% { transform: translateY(42%); }
   100% { transform: translateY(105%); }
 }
 @keyframes cube-glance { 0%, 34% { transform: none; } 34%, 52% { transform: scaleX(-1); } 52%, 100% { transform: none; } }
 @keyframes cube-bubble { 0%, 18% { opacity: 0; } 24%, 72% { opacity: 1; } 80%, 100% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
   .cube-btn:hover, .cube-btn:focus-visible { transform: none; }
-  .cube-peek { transform: translateY(30%); }
+  .cube-peek { transform: translateY(42%); }
   .cube-peek.go { animation: cube-fade 3.6s ease both; }
   .cube-peek.go img { animation: none; }
   @keyframes cube-fade { 0%, 100% { opacity: 0; } 12%, 85% { opacity: 1; } }
