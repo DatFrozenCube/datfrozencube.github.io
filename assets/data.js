@@ -9,7 +9,7 @@ window.SITE = {
   name: "Davis Mesmer",
   headline: "Davis Mesmer",
   intro:
-    "I'm a producer in the Master of Entertainment Arts and Engineering program at the University of Utah, and before that I was a software engineer at CarMax. I'm seeking a production internship as part of my studies for Summer of 2027.",
+    "I'm a producer in the Master of Entertainment Arts and Engineering program at the University of Utah, and before that I was a software engineer at CarMax.",
   // Anything left empty is hidden.
   email: "gogreenmesmer@hotmail.com",
   linkedin: "https://www.linkedin.com/in/davis-mesmer/",
@@ -80,7 +80,7 @@ window.SITE = {
     ],
     facts: [
       ["Now", "Producer, MEAE at the University of Utah, graduating May 2028"],
-      ["Looking for", "A production internship for Summer 2027"],
+      ["Looking for", "I'm open to production roles and collaborations."],
       ["Before", "Software Engineer, CarMax"],
       ["Education", "B.B.A. in Computer Information Systems, James Madison University, cum laude"],
       ["Off the clock", "Photography, starting businesses, and playing games"],

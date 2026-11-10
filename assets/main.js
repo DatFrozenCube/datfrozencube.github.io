@@ -394,7 +394,39 @@
       .join("");
   }
 
+  /* ---------- Easter egg: the frozen cube peeks in ----------
+     Click the tiny ice cube in the footer. */
+  function initCube() {
+    const btn = $("#cube-btn");
+    if (!btn) return;
+    let busy = false;
+    const peek = () => {
+      if (busy) return;
+      busy = true;
+      let el = $(".cube-peek");
+      if (!el) {
+        el = document.createElement("div");
+        el.className = "cube-peek";
+        el.innerHTML = `<img src="images/frozen-cube.webp" alt="DatFrozenCube, Davis's pixel avatar: an ice cube in a hoodie" width="122" height="150"><span class="cube-bubble" role="status">you found me!</span>`;
+        document.body.appendChild(el);
+        el.addEventListener("animationend", (e) => {
+          if (e.target !== el) return; // ignore the image and bubble animations
+          el.classList.remove("go");
+          busy = false;
+        });
+      }
+      const img = el.querySelector("img");
+      const go = () => {
+        void el.offsetWidth; // make sure the animation restarts
+        el.classList.add("go");
+      };
+      img.complete ? go() : img.addEventListener("load", go, { once: true });
+    };
+    btn.addEventListener("click", peek);
+  }
+
   renderBadges();
+  initCube();
   if (document.body.dataset.page === "resume") renderResume();
   if (document.body.dataset.page === "home") renderHome();
   if (document.body.dataset.page === "project") renderProject();
