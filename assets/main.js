@@ -122,40 +122,50 @@
     const span = max - min;
     const pct = (d) => ((d - min) / span) * 100;
 
-    let axis = "", grid = "";
+    // X axis: a tick every quarter, with the year on the first tick and on each January.
+    let ticks = "", grid = "", firstTick = true;
     for (let d = new Date(min); d < max; d = new Date(d.getFullYear(), d.getMonth() + 1, 1)) {
+      if (d.getMonth() % 3 !== 0) continue;
       const x = pct(d).toFixed(3);
-      if (d.getMonth() % 3 === 0) {
-        axis += `<span style="left:${x}%">${d.getMonth() === 0 ? d.getFullYear() : MONTHS[d.getMonth()]}</span>`;
-        grid += `<i style="left:${x}%"></i>`;
-      }
+      const label = firstTick || d.getMonth() === 0 ? `${MONTHS[d.getMonth()]} ${d.getFullYear()}` : MONTHS[d.getMonth()];
+      ticks += `<span style="left:${x}%"${d.getMonth() === 0 ? ' class="year"' : ""}>${label}</span>`;
+      grid += `<i style="left:${x}%"${d.getMonth() === 0 ? ' class="year"' : ""}></i>`;
+      firstTick = false;
     }
 
-    const rows = items
+    // Y axis: one row per project, oldest first.
+    const yLabels = items
+      .map(
+        (p) => `<a class="gantt-ylabel" href="project.html?p=${esc(p.slug)}">
+          <strong>${esc(p.title)}</strong><span>${esc(p.role)}, ${esc(dateRange(p))}</span>
+        </a>`
+      )
+      .join("");
+
+    const bars = items
       .map((p, i) => {
         const s = parse(p.start);
         const e = parse(p.end) || today;
         const left = pct(s), width = Math.max(pct(e) - left, 0.6);
-        const inside = width > 22;
-        const flip = !inside && left + width > 62;
-        const labelX = inside ? left : flip ? left : left + width;
-        const meta = `${p.role}, ${dateRange(p)}`;
         return `<div class="gantt-row">
-          <a class="gantt-bar k-${p.kind}${p.end ? "" : " ongoing"}" style="left:${left}%;width:${width}%;--i:${i}" href="project.html?p=${esc(p.slug)}" tabindex="-1" aria-hidden="true"></a>
-          <a class="gantt-label${flip ? " flip" : ""}${inside ? " inside" : ""}" style="left:${labelX}%" href="project.html?p=${esc(p.slug)}">
-            <strong>${esc(p.title)}</strong><span>${esc(meta)}</span>
-          </a>
+          <a class="gantt-bar k-${p.kind}${p.end ? "" : " ongoing"}" style="left:${left}%;width:${width}%;--i:${i}" href="project.html?p=${esc(p.slug)}" title="${esc(`${p.title}: ${dateRange(p)}`)}" tabindex="-1" aria-hidden="true"></a>
         </div>`;
       })
       .join("");
 
     $("#gantt").innerHTML = `
-      <div class="gantt-axis">${axis}</div>
-      <div class="gantt-rows">
+      <div class="gantt-ytitle">Project</div>
+      <div aria-hidden="true"></div>
+      <div class="gantt-ylabels">${yLabels}</div>
+      <div class="gantt-plot">
         <div class="gantt-grid" aria-hidden="true">${grid}</div>
         <div class="gantt-today" style="left:${pct(today)}%" aria-hidden="true"><b>Today</b></div>
-        ${rows}
-      </div>`;
+        ${bars}
+      </div>
+      <div class="gantt-corner" aria-hidden="true"></div>
+      <div class="gantt-axis" aria-hidden="true">${ticks}</div>
+      <div class="gantt-corner" aria-hidden="true"></div>
+      <div class="gantt-xtitle">Time</div>`;
   }
 
   /* ---------- Project page ---------- */
