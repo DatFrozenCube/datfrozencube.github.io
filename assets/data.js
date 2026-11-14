@@ -13,7 +13,7 @@ window.SITE = {
   // Anything left empty is hidden.
   email: "gogreenmesmer@hotmail.com",
   linkedin: "https://www.linkedin.com/in/davis-mesmer/",
-  resume: "resume.pdf?v=20261114b", // replace resume.pdf in the site folder to update it
+  resume: "resume.pdf?v=20261114c", // replace resume.pdf in the site folder to update it
   github: "https://github.com/DatFrozenCube",
   itch: "https://datfrozencube.itch.io",
   // Badges shown in the header on every page.
