@@ -92,10 +92,12 @@
 
     const ab = S.about;
     if (ab && $("#about-body")) {
+      const photoInHero = !!$("#hero-photo"); // the photo sits at the top of the page instead
+      $("#about-body").classList.toggle("no-photo", photoInHero);
       $("#about-body").innerHTML = `
-        <img class="about-photo" src="${esc(ab.photo)}" alt="${esc(ab.alt)}" width="800" height="1000" loading="lazy">
+        ${photoInHero ? "" : `<img class="about-photo" src="${esc(ab.photo)}" alt="${esc(ab.alt)}" width="800" height="1000" loading="lazy">`}
         <div class="about-text">
-          ${ab.paragraphs.map((t) => `<p>${esc(t)}</p>`).join("")}
+          ${ab.showParagraphs === false ? "" : ab.paragraphs.map((t) => `<p>${esc(t)}</p>`).join("")}
           <dl class="about-facts">${ab.facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
         </div>`;
     }
@@ -423,6 +425,13 @@
       img.complete ? go() : img.addEventListener("load", go, { once: true });
     };
     btn.addEventListener("click", peek);
+  }
+
+  // About section switched off in data.js: hide it and every nav link to it.
+  if (S.about && S.about.show === false) {
+    const sec = $("#about");
+    if (sec) sec.hidden = true;
+    document.querySelectorAll('a[href="#about"], a[href="index.html#about"]').forEach((a) => (a.hidden = true));
   }
 
   renderBadges();

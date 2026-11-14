@@ -9,7 +9,7 @@ window.SITE = {
   name: "Davis Mesmer",
   headline: "Davis Mesmer",
   intro:
-    "I'm a producer in the Master of Entertainment Arts and Engineering program at the University of Utah, and before that I was a software engineer at CarMax.",
+    "I'm a Producer in the Master of Entertainment Arts and Engineering program at the University of Utah, and before that I was a Software Engineer at CarMax.",
   // Anything left empty is hidden.
   email: "gogreenmesmer@hotmail.com",
   linkedin: "https://www.linkedin.com/in/davis-mesmer/",
@@ -37,13 +37,13 @@ window.SITE = {
   ],
   // Shown on the résumé page next to the PDF.
   resumeHighlights: [
-    "Master of Entertainment Arts and Engineering, University of Utah (Producer track, in progress)",
-    "Co-Producer, Peter Pan Project: cut Jira cycle time by over 50%",
+    "Master of Entertainment Arts and Engineering, University of Utah (Producer Track, expected graduation 2028)",
+    "Producer, Oto: cut average task lead time by 15% over two sprints",
     "Games teaching assistant, University of Utah: Survey of Games (130 students) and Capstone I (80 students)",
     "Software Engineer, CarMax (Fortune 100)",
     "B.B.A. in Computer Information Systems, James Madison University, 2022. Cum laude, Honors College",
     "2nd place overall, Jackson-Rainey Business Plan Competition",
-    "Unity Certified User: Programmer",
+    "Off the clock: Photography, starting businesses, and playing games",
   ],
   skills: {
     production: [
@@ -74,6 +74,8 @@ window.SITE = {
   about: {
     photo: "images/headshot.webp",
     alt: "Davis Mesmer",
+    show: false, // hides the whole About section and its nav links; set to true to bring it back
+    showParagraphs: false, // set to true to show the paragraphs below again
     paragraphs: [
       "I'm a producer because I like making teams work. I believe that any team has what it takes to succeed with the right guidance. For me, producing is all about making individuals feel heard while encouraging people to do their best work.",
       "I studied Computer Information Systems at James Madison University, then worked as a software engineer at CarMax, where I learned how much clear communication matters. I'm currently on the Production Track in the Masters of Entertainment Arts and Engineering program at the University of Utah, and working as a teaching assistant for Utah Games.",
